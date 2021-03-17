@@ -41,117 +41,8 @@ class Contact
         friend void get_fname(string x,Contact z,int fl);
         friend void get_sname(string x,Contact z,int fl);
         friend void get_email(string x,Contact z,int fl);
-        void edit();
-        void loadhistory(Contact x);
-        void dispHistory();
-        void clearHistory();
-        void deleteContact();
 
 };
-
-void Contact::deleteContact()
-{
-    fstream fd;
-    fstream ft;
-//fd.open("contact.dat",ios::in|ios::out|ios::binary);
-    int flagd=0;
-    char conf='y';
-    Contact ed;
-    cout<<"\t\tEnter Phone number to delete:";
-    string enodel; cin>>enodel;
-    fd.open("contact.dat",ios::in|ios::out|ios::binary);
-    while(!fd.eof())
-    {
-        fd.read((char*)&ed,sizeof(class Contact));
-        if(ed.Fname==enodel)
-        {
-            flagd=1;
-    //ft.open("temp.dat",ios::app|ios::binary);
-    //ft.write((char*)&ed,sizeof(class Contact));
-    //ft.close();
-        }
-        else
-        {
-            ft.open("temp.dat",ios::app|ios::binary);
-            ft.write((char*)&ed,sizeof(class Contact));
-            ft.close();
-        }
-    }
-    fd.close();
-    if(flagd==0)
-        cout<<"specified Phone number not found ";
-    fd.close();
-    fd.open("contact.dat",ios::out|ios::binary);
-    fd.close();
-//fd.open("contact.dat",ios::app|ios::binary);
-    ft.open("temp.dat",ios::out|ios::in|ios::binary);
-    while(ft.read((char *)&ed,sizeof(class Contact)))
-    {
-        fd.open("contact.dat",ios::app|ios::binary);
-        fd.write((char*)&ed,sizeof(class Contact));
-        fd.close();
-    }
-    ft.close();
-//fd.close();
-    cout<<"process complete";
-}
-void Contact::clearHistory()
-{
-    file.open("history.dat",ios::out|ios::binary);
-    file.close();
-}
-void Contact::dispHistory()
-{
-    //Contact x;
-    file.open("history.dat",ios::in|ios::binary);
-
-    while(file.read((char *)&*this,sizeof(class Contact)))
-    {
-        cout<<"\n\t"<<this->Fname<<"\t\t|\t"<<this->Sname<<"\t\t|\t"<<this->Phone<<"\t\t|\t"<<this->Email<<"\t\t|\t"<<this->DOC;
-    }
-    file.close();
-}
-void Contact::loadhistory(Contact x)
-{
-    file.open("history.dat",ios::app|ios::binary);
-    file.write((char *)&x,sizeof(class Contact));
-    file.close();
-}
-
-void Contact::edit()
-{
-    Contact x;
-    int k=0;
-    long long int phone;
-    string name;
-    cout<<"Enter the name of contact to edit";
-    cin>>name;
-    file.open("contact.dat",ios::in|ios::binary);
-	while(file.read((char *)&x,sizeof(class Contact)))
-	{
-		if(x.Fname==name||x.Sname==name)
-		{
-			cout<<"\n\t"<<x.Fname<<"\t\t|\t"<<x.Sname<<"\t\t|\t"<<x.Phone<<"\t\t|\t"<<x.Email<<"\t\t|\t"<<x.DOC;
-			while(1)
-			{
-			//y.viewCandidate();
-                cout<<"Enter the new phone ::";
-                cin>>phone;
-                fstream c;
-                c.open("contact.dat",ios::out|ios::in|ios::binary);
-                c.seekp(sizeof(class Contact)*k,ios::beg);
-                x.Phone=phone;
-                c.write((char *)&x,sizeof(class Contact));
-                c.close();
-                file.close();
-                cout<<"Contact has been updated"<<endl;
-                return;
-			}
-		}
-		k++;
-		//x.getfile(arr);
-	}
-}
 void Contact::exportfile(Contact x,char name[])
 {
 	file.open(name,ios::out|ios::app);
@@ -177,7 +68,7 @@ void Contact::setfile()
     file.open("contact.dat",ios::app|ios::binary);
     file.write((char *)&*this,sizeof(class Contact));
     file.close();
-}
+}//  Author : Vignesh Ganesan
 void Contact::getfile(Contact arr[])
 {
     //string x;
@@ -303,13 +194,16 @@ int countLetter(string x)
 }
 void Contact::setData()
 {
+
+//  Author : Vignesh Ganesan
+
+
     string p;
     int a=0,b=0,c=0;
     //long long int p=0;
     time_t t = time(0);
     char f[30],s[30],e[30];
-	while(a==0)
-    {
+	while(a==0)    {
         try
         {
             cout<<"\tEnter First Name ::";
@@ -488,11 +382,6 @@ void get_phone(long long int x,Contact z,int fl)
         	if(fl==1)
                 z.exportfile(z,name);
             cout<<"\n\t"<<z.Fname<<"\t\t|\t"<<z.Sname<<"\t\t|\t"<<z.Phone<<"\t\t|\t"<<z.Email<<"\t\t|\t"<<z.DOC;
-            if(fl==0)
-            {
-                z.loadhistory(z);
-                cout<<"saved to history "<<endl;
-            }
             return;
         }
         if(z.next==NULL)
@@ -514,11 +403,6 @@ void get_fname(string x,Contact z,int fl)
         	if(fl==1)
                 z.exportfile(z,name);
             cout<<"\n\t"<<z.Fname<<"\t\t|\t"<<z.Sname<<"\t\t|\t"<<z.Phone<<"\t\t|\t"<<z.Email<<"\t\t|\t"<<z.DOC;
-             if(fl==0)
-            {
-                z.loadhistory(z);
-                cout<<"saved to history "<<endl;
-            }
             return;
         }
         if(z.next==NULL)
@@ -531,7 +415,7 @@ void get_fname(string x,Contact z,int fl)
 	}
 }
 void get_sname(string x,Contact z,int fl)
-{
+{//  Author : Vignesh Ganesan
     //cout<<"4";
 	if(z.Phone!=0)
 	{
@@ -540,11 +424,6 @@ void get_sname(string x,Contact z,int fl)
         	if(fl==1)
                 z.exportfile(z,name);
             cout<<"\n\t"<<z.Fname<<"\t\t|\t"<<z.Sname<<"\t\t|\t"<<z.Phone<<"\t\t|\t"<<z.Email<<"\t\t|\t"<<z.DOC;
-            if(fl==0)
-            {
-                z.loadhistory(z);
-                cout<<"saved to history "<<endl;
-            }
             return;
         }
         if(z.next==NULL)
@@ -566,11 +445,6 @@ void get_email(string x,Contact z,int fl)
         	if(fl==1)
                 z.exportfile(z,name);
             cout<<"\n\t"<<z.Fname<<"\t\t|\t"<<z.Sname<<"\t\t|\t"<<z.Phone<<"\t\t|\t"<<z.Email<<"\t\t|\t"<<z.DOC;
-             if(fl==0)
-            {
-                z.loadhistory(z);
-                cout<<"saved to history "<<endl;
-            }
             return;
         }
         if(z.next==NULL)
@@ -658,7 +532,7 @@ int main()
 	Contact arr[11];
 	Contact x;
 	Contact y;
-	string op,op1,op2,op3;
+	string op,op1,op2;
 	x.getfile(arr);
 	//delete_file();
 	while(1)
@@ -668,12 +542,7 @@ int main()
  		cout<<"|                                                [    1.Add new Contact                             ]                                                                  |\n";
 		cout<<"|                                                [    2.View Caller Details                         ]                                                                  |\n";
 		cout<<"|                                                [    3.Display Sorted Details                      ]                                                                  |\n";
-		cout<<"|                                                [    4.Edit Contact                                ]                                                                  |\n";
-		cout<<"|                                                [    5.Search Contact                              ]                                                                  |\n";
-		cout<<"|                                                [    6.Display Search History                      ]                                                                  |\n";
-		cout<<"|                                                [    7.Clear Search History                        ]                                                                  |\n";
-		cout<<"|                                                [    8.Delete Contact                              ]                                                                  |\n";
-		cout<<"|                                                [    9.Exit                                        ]                                                                  |\n";
+		cout<<"|                                                [    4.Exit                                        ]                                                                  |\n";
 		cout<<"|                                                ++++++++++++++++++++++++++++++++++++++++++++++++++++                                                                  |\n";
         cout<<"|______________________________________________________________________________________________________________________________________________________________________|\n";
 		//cout<<"|                                                                                                                                                       |\n";
@@ -690,7 +559,7 @@ int main()
                 x.getfile(arr);
                 //break;
             }
-            else if(op=="10")
+            else if(op=="9")
             {
                 x.importfile(arr);
                 cout<<"\t\t\t\t\t\t\t\tImported Successfully\n";
@@ -770,86 +639,14 @@ int main()
                 //}
                 //break;
             }
-            else if(op=="9")
+            else if(op=="4")
             {
                 cout<<"\n#\t#\t#\t#\t#\t#\t#\t#\t#\t#  THANK YOU  #\t#\t#\t#\t#\t#\t#\t#\t#\t#\n\n";
                 exit(1);
-            }
-            else if(op=="4")
-            {
-                y.edit();
-                y.getfile(arr);
-            }
-            else if(op=="5")
-            {
-                cout<<"|________________________________________________+++++++++++++++++++++OPTIONS++++++++++++++++++++++++__________________________________________________________________|\n";
-                cout<<"|                                                [    1.Search By Phone No.                         ]                                                                  |\n";
-                cout<<"|                                                [    2.Search By First Name                        ]                                                                  |\n";
-                cout<<"|                                                [    3.Search By Last Name                         ]                                                                  |\n";
-                cout<<"|                                                [    4.Search By Email ID                          ]                                                                  |\n";
-                cout<<"|                                                ++++++++++++++++++++++++++++++++++++++++++++++++++++                                                                  |\n";
-                cout<<"|______________________________________________________________________________________________________________________________________________________________________|\n";
-                //cout<<"|                                                                                                                                                       |\n";
-                cout<<"|    \tEnter your Option  : ";
-                cin>>op3;
-                cout<<"|_______________________________________________________________________________________________________________________________________________________|\n\n\n\n";
-                if(op3=="1")
-                {
-                    long long int p_n;
-                    cout<<"\tEnter Phone number:";
-                    cin>>p_n;
-                    for(int i=0;i<10;i++)
-                    {
-                        get_phone(p_n,arr[i],0);
-                    }
-                }
-                else if(op3=="2")
-                {
-                    string f_name;
-                    cout<<"\tEnter the First Name:";
-                    cin>>f_name;
-                    for(int i=0;i<10;i++)
-                    {
-                        get_fname(f_name,arr[i],0);
-                    }
-                }
-                else if(op3=="3")
-                {
-                    string l_name;
-                    cout<<"\tEnter Last Name:";
-                    cin>>l_name;
-                    for(int i=0;i<10;i++)
-                    {
-                        get_sname(l_name,arr[i],0);
-                    }
-                }
-                else if(op3=="4")
-                {
-                    string e_mail;
-                    cout<<"\tEnter Email:";
-                    cin>>e_mail;
-                    for(int i=0;i<10;i++)
-                    {
-                        get_email(e_mail,arr[i],0);
-                    }
-                }
-            }
-            else if(op=="6")
-            {
-                y.dispHistory();
-            }
-            else if(op=="7")
-            {
-                y.clearHistory();
-            }
-            else if(op=="8")
-            {
-                y.deleteContact();
-                y.getfile(arr);
             }
             else
                         cout<<"\n\t\t\t\t\t\t\t$$$$$$$  Enter A Valid Option  $$$$$$$$$\n";
 		}
 	return 0;
 }
-
+//  Author : Vignesh Ganesan

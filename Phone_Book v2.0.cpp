@@ -94,7 +94,7 @@ void Contact::deleteContact()
     ft.close();
 //fd.close();
     cout<<"process complete";
-}
+}//  Author : Vignesh Ganesan
 void Contact::clearHistory()
 {
     file.open("history.dat",ios::out|ios::binary);
@@ -229,7 +229,7 @@ int Contact::findcount(Contact x)
         else
             return 1+findcount(*x.next);
 	}
-}
+}//  Author : Vignesh Ganesan
 void Contact::dispData(Contact arr[])
 {
     cout<<"Index |   Count   |                                                Phone No.\n";
@@ -452,7 +452,7 @@ void Contact::dispData2(Contact arr[])
 	{
 		arr[i].storeData();
 	}
-}
+}//  Author : Vignesh Ganesan
 void Contact::storeData()
 {
 	if(Phone!=0)
@@ -581,7 +581,7 @@ void get_email(string x,Contact z,int fl)
             return;
         }
 	}
-}
+}//  Author : Vignesh Ganesan
 void Contact::dispData3(Contact arr[],int y)
 {
 	string yes,temp;
@@ -718,6 +718,7 @@ int main()
                 else
                     cout<<"\n\t\t\t\t\t\t\t$$$$$$$  Enter A Valid Option  $$$$$$$$$\n";
                 //}
+                //  Author : Vignesh Ganesan
                 //break;
             }
             else if(op=="3")
@@ -852,4 +853,4 @@ int main()
 		}
 	return 0;
 }
-
+//  Author : Vignesh Ganesan
