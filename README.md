@@ -10,4 +10,4 @@ Otherwise, You will get an error: " 'stoll' is not declared in the scope"  <br /
 *NOTE*
 - There is a hidden option (Option 10) to import contacts from a CSV file <br />
 - The name of the CSV file must be "contact.csv" and it must be in the same folder  
-- I have not added CUDA in this repo. (It has evolved into a separate project. Will provide a link once it's complete)
+- I've separated the encryptor function - https://gist.github.com/vigneshganesan008/2de8156a5d6c9560c496969c55863042
